@@ -59,9 +59,14 @@ const Footer = () => {
           </p>
           <div className="flex items-center space-x-2 mt-4 md:mt-0">
             <span className="text-sm text-muted-foreground">Développé par</span>
-            <span className="font-semibold hero-gradient bg-clip-text text-transparent">
-              Soufian RAMZI
-            </span>
+            <a
+              href="https://www.evolystis.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold hero-gradient bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+            >
+              Evolystis
+            </a>
           </div>
         </div>
       </div>

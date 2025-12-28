@@ -253,10 +253,10 @@ $step = isset($_GET['step']) ? (int)$_GET['step'] : 1;
 
             <?php
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $db_host = $_POST['db_host'] ?? 'localhost';
-                $db_name = $_POST['db_name'] ?? 'meetsync';
-                $db_user = $_POST['db_user'] ?? 'root';
-                $db_pass = $_POST['db_pass'] ?? '';
+                $db_host = $_POST['db_host'] ?? 'www.evomeetsync.evolystis.com';
+                $db_name = $_POST['db_name'] ?? 'evolysti_evomeetsync';
+                $db_user = $_POST['db_user'] ?? 'evolysti_evomeetsync';
+                $db_pass = $_POST['db_pass'] ?? 'Evolystis@2025@2025';
 
                 try {
                     // Tester la connexion
@@ -332,22 +332,22 @@ class Database {
             <form method="POST">
                 <div class="form-group">
                     <label>Hôte MySQL</label>
-                    <input type="text" name="db_host" value="localhost" required>
+                    <input type="text" name="db_host" value="www.evomeetsync.evolystis.com" required>
                 </div>
 
                 <div class="form-group">
                     <label>Nom de la base de données</label>
-                    <input type="text" name="db_name" value="meetsync" required>
+                    <input type="text" name="db_name" value="evolysti_evomeetsync" required>
                 </div>
 
                 <div class="form-group">
                     <label>Utilisateur MySQL</label>
-                    <input type="text" name="db_user" value="root" required>
+                    <input type="text" name="db_user" value="evolysti_evomeetsync" required>
                 </div>
 
                 <div class="form-group">
                     <label>Mot de passe MySQL</label>
-                    <input type="password" name="db_pass">
+                    <input type="password" name="db_pass" value="Evolystis@2025@2025" required>
                 </div>
 
                 <div class="buttons">
