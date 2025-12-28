@@ -1,0 +1,33 @@
+# Configuration Apache pour l'API
+
+# Activer le module de réécriture
+RewriteEngine On
+
+# Gérer les requêtes preflight CORS
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+# Rediriger toutes les requêtes vers le bon endpoint
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Headers de sécurité
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "DENY"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
+# Désactiver l'affichage des erreurs en production
+php_flag display_errors off
+php_flag display_startup_errors off
+
+# Définir le fuseau horaire
+php_value date.timezone "Europe/Paris"
+
+# Limites PHP
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 30
+php_value memory_limit 128M
