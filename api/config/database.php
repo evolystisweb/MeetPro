@@ -4,10 +4,10 @@
  */
 
 class Database {
-    private $host = 'localhost';
-    private $db_name = 'meetsync';
-    private $username = 'root';
-    private $password = '';
+    private $host = 'www.evomeetsync.evolystis.com';
+    private $db_name = 'evolysti_evomeetsync';
+    private $username = 'evolysti_evomeetsync';
+    private $password = 'Evolystis@2025@2025';
     private $charset = 'utf8mb4';
     public $conn;
 
