@@ -3,11 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Star, Zap, Crown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+const EUR_TO_MAD = 10.75;
 
 const pricingPlans = [
   {
     name: "Gratuit",
-    price: "Free",
+    priceEur: 0,
+    priceMad: 0,
     period: "/mois",
     description: "Parfait pour commencer",
     icon: Star,
@@ -15,8 +19,8 @@ const pricingPlans = [
     bgGradient: "from-gray-50 to-gray-100",
     borderColor: "border-gray-200",
     features: [
-      "Types d'événements illimités",
-      "10 événements/mois maximum",
+      "3 types d'événements",
+      "50 réservations/mois",
       "Calendrier de base",
       "Support email",
       "Intégration calendrier simple"
@@ -30,7 +34,8 @@ const pricingPlans = [
   },
   {
     name: "Pro",
-    price: "2€",
+    priceEur: 29.99,
+    priceMad: 322.39,
     period: "/mois",
     description: "Pour les professionnels",
     icon: Zap,
@@ -38,8 +43,8 @@ const pricingPlans = [
     bgGradient: "from-primary/5 to-primary/10",
     borderColor: "border-primary/20",
     features: [
-      "Types d'événements illimités",
-      "Réservations illimitées",
+      "20 types d'événements",
+      "500 réservations/mois",
       "Calendriers multiples",
       "Personnalisation avancée",
       "Rappels automatiques",
@@ -53,7 +58,8 @@ const pricingPlans = [
   },
   {
     name: "Business",
-    price: "5€",
+    priceEur: 79.99,
+    priceMad: 859.89,
     period: "/mois",
     description: "Pour les équipes",
     icon: Crown,
@@ -61,7 +67,8 @@ const pricingPlans = [
     bgGradient: "from-accent/5 to-accent/10",
     borderColor: "border-accent/20",
     features: [
-      "Tout du plan Pro",
+      "Événements illimités",
+      "Réservations illimitées",
       "Équipe collaborative",
       "Round Robin meetings",
       "API complète",
@@ -79,6 +86,7 @@ const pricingPlans = [
 
 const Pricing = () => {
   const navigate = useNavigate();
+  const [currency, setCurrency] = useState<'EUR' | 'MAD'>('EUR');
 
   return (
     <section id="pricing" className="py-20 bg-gradient-to-br from-background via-secondary/30 to-primary/5">
@@ -90,6 +98,23 @@ const Pricing = () => {
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Des tarifs transparents qui s'adaptent à vos besoins, de l'entrepreneur solo aux grandes équipes
           </p>
+
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <Button
+              variant={currency === 'EUR' ? 'default' : 'outline'}
+              onClick={() => setCurrency('EUR')}
+              className="px-6"
+            >
+              EUR (€)
+            </Button>
+            <Button
+              variant={currency === 'MAD' ? 'default' : 'outline'}
+              onClick={() => setCurrency('MAD')}
+              className="px-6"
+            >
+              MAD (د.م.)
+            </Button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -130,9 +155,28 @@ const Pricing = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    <span className="text-muted-foreground ml-1">{plan.period}</span>
+                    {plan.priceEur === 0 ? (
+                      <span className="text-4xl font-bold">Gratuit</span>
+                    ) : (
+                      <>
+                        <span className="text-4xl font-bold">
+                          {currency === 'EUR'
+                            ? `${plan.priceEur.toFixed(2)}€`
+                            : `${plan.priceMad.toFixed(2)} د.م.`
+                          }
+                        </span>
+                        <span className="text-muted-foreground ml-1">{plan.period}</span>
+                      </>
+                    )}
                   </div>
+                  {plan.priceEur > 0 && (
+                    <div className="text-xs text-muted-foreground">
+                      {currency === 'EUR'
+                        ? `≈ ${plan.priceMad.toFixed(0)} MAD`
+                        : `≈ ${plan.priceEur.toFixed(2)} EUR`
+                      }
+                    </div>
+                  )}
                 </div>
               </CardHeader>
               

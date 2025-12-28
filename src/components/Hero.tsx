@@ -75,19 +75,85 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="relative animate-slide-up floating">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src={heroImage} 
-                alt="Interface de planification MeetSync" 
-                className="w-full h-auto hover:scale-105 transition-transform duration-500"
+          <div className="relative animate-slide-up">
+            {/* Éléments 3D flottants en arrière-plan */}
+            <div className="absolute inset-0 overflow-visible">
+              {/* Cube 3D rotatif */}
+              <div className="absolute top-10 right-20 w-32 h-32 animate-float"
+                   style={{
+                     transformStyle: 'preserve-3d',
+                     animation: 'float 6s ease-in-out infinite, rotate3d 10s linear infinite'
+                   }}>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-500/30 backdrop-blur-sm rounded-2xl"
+                     style={{
+                       transform: 'rotateX(30deg) rotateY(30deg)',
+                       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+                     }}></div>
+              </div>
+
+              {/* Cercle 3D pulsant */}
+              <div className="absolute bottom-20 left-10 w-40 h-40"
+                   style={{
+                     transformStyle: 'preserve-3d',
+                     animation: 'pulse 4s ease-in-out infinite, float 8s ease-in-out infinite'
+                   }}>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-400/20 to-blue-500/20 backdrop-blur-sm"
+                     style={{
+                       transform: 'rotateX(60deg)',
+                       boxShadow: '0 35px 60px -15px rgba(34, 197, 94, 0.3)'
+                     }}></div>
+              </div>
+
+              {/* Éléments de calendrier flottants */}
+              <div className="absolute top-1/4 left-0 w-20 h-20 bg-white/10 backdrop-blur-md rounded-lg shadow-xl"
+                   style={{
+                     animation: 'float 5s ease-in-out infinite',
+                     transform: 'perspective(1000px) rotateY(20deg) rotateX(10deg)',
+                     animationDelay: '0.5s'
+                   }}>
+                <div className="p-2 text-center">
+                  <div className="text-xs text-blue-400 font-bold">MAR</div>
+                  <div className="text-2xl font-bold text-white">15</div>
+                </div>
+              </div>
+
+              {/* Icône horloge 3D */}
+              <div className="absolute top-1/2 right-0 w-24 h-24 bg-gradient-to-br from-orange-400/20 to-red-500/20 backdrop-blur-md rounded-full shadow-2xl flex items-center justify-center"
+                   style={{
+                     animation: 'float 7s ease-in-out infinite, spin-slow 20s linear infinite',
+                     transform: 'perspective(1000px) rotateY(-20deg)',
+                     animationDelay: '1s'
+                   }}>
+                <Clock className="h-12 w-12 text-orange-400" />
+              </div>
+            </div>
+
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-all duration-500"
+                 style={{
+                   transformStyle: 'preserve-3d',
+                   transform: 'perspective(1500px) rotateY(-5deg)'
+                 }}>
+              <img
+                src={heroImage}
+                alt="Interface de planification MeetSync"
+                className="w-full h-auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent"></div>
+
+              {/* Effet de lumière 3D */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     transform: 'translateZ(20px)'
+                   }}></div>
             </div>
-            
-            {/* Floating elements */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full hero-gradient opacity-20 blur-xl animate-pulse floating"></div>
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-accent/20 blur-xl animate-pulse delay-300 floating"></div>
+
+            {/* Particules flottantes */}
+            <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full hero-gradient opacity-20 blur-xl"
+                 style={{ animation: 'pulse 3s ease-in-out infinite, float 5s ease-in-out infinite' }}></div>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-accent/20 blur-xl"
+                 style={{ animation: 'pulse 4s ease-in-out infinite, float 6s ease-in-out infinite 1s' }}></div>
+            <div className="absolute top-1/3 -left-12 w-20 h-20 rounded-full bg-blue-500/10 blur-lg"
+                 style={{ animation: 'float 7s ease-in-out infinite 2s' }}></div>
           </div>
         </div>
       </div>

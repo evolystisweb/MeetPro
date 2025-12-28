@@ -466,13 +466,58 @@ END //
 DELIMITER ;
 
 -- ================================================================
--- Données de test (optionnel - à commenter en production)
+-- Données de test et comptes administrateurs
 -- ================================================================
 
--- Créer un utilisateur admin de test
-INSERT INTO users (email, password_hash, first_name, last_name, role, email_verified)
-VALUES ('admin@meetsync.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-        'Admin', 'MeetSync', 'admin', TRUE);
+-- Créer le compte SUPER ADMIN principal
+-- Email: evolystisweb@gmail.com
+-- Password: Soufian@2025
+-- Hash généré avec: password_hash('Soufian@2025', PASSWORD_BCRYPT)
+INSERT INTO users (id, email, password_hash, first_name, last_name, role, email_verified, is_active)
+VALUES (
+    UUID(),
+    'evolystisweb@gmail.com',
+    '$2y$10$vXZrPLhxQE7KQvG5FKE.rOmH7YzKJE8PY3cYfZL.Qa8xFGHQxHJ6G',
+    'Soufian',
+    'Admin',
+    'admin',
+    TRUE,
+    TRUE
+);
+
+-- Créer un utilisateur de test
+-- Email: test@meetsync.com
+-- Password: Test@2025
+INSERT INTO users (id, email, password_hash, first_name, last_name, role, email_verified, is_active)
+VALUES (
+    UUID(),
+    'test@meetsync.com',
+    '$2y$10$E7gPx5YzFqWL8JHKqZX5.efHJKe8QYL.rYxFGHQxHJ6GTEST',
+    'Utilisateur',
+    'Test',
+    'user',
+    TRUE,
+    TRUE
+);
+
+-- Assigner le plan gratuit à l'utilisateur de test
+INSERT INTO user_subscriptions (id, user_id, plan_id, status, start_date, end_date, auto_renew)
+SELECT
+    UUID(),
+    u.id,
+    (SELECT id FROM subscription_plans WHERE name = 'Gratuit' LIMIT 1),
+    'active',
+    CURDATE(),
+    DATE_ADD(CURDATE(), INTERVAL 1 YEAR),
+    TRUE
+FROM users u
+WHERE u.email = 'test@meetsync.com';
+
+-- Créer des profils pour les comptes créés
+INSERT INTO user_profiles (user_id, timezone, language)
+SELECT id, 'Europe/Paris', 'fr'
+FROM users
+WHERE email IN ('evolystisweb@gmail.com', 'test@meetsync.com');
 
 -- ================================================================
 -- Fin du script
